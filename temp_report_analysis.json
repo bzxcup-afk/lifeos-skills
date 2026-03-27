@@ -1,0 +1,42 @@
+{
+  "report_meta": {
+    "report_type": "血常规检查",
+    "hospital": "秭归县两河口镇卫生院",
+    "department": "外科",
+    "exam_date": "2023-08-30",
+    "report_date": "2023-08-30",
+    "patient_name": "",
+    "gender": "",
+    "age": 84,
+    "birth_date": "",
+    "height": null,
+    "weight": null,
+    "blood_type": ""
+  },
+  "items": [
+    {"raw_name": "WBC 白细胞", "standard_name": "白细胞计数", "category": "血细胞", "value": 10.37, "text_value": "", "unit": "10^9/L", "reference_range": "4-10", "abnormal_flag": "高", "confidence": 0.95, "risks": [], "review_priority": "low"},
+    {"raw_name": "NEUT# 中性粒细胞数", "standard_name": "中性粒细胞绝对值", "category": "血细胞", "value": 9.15, "text_value": "", "unit": "10^9/L", "reference_range": "2-7", "abnormal_flag": "高", "confidence": 0.95, "risks": [], "review_priority": "low"},
+    {"raw_name": "LYM# 淋巴细胞数", "standard_name": "淋巴细胞绝对值", "category": "血细胞", "value": 0.76, "text_value": "", "unit": "10^9/L", "reference_range": "0.8-4", "abnormal_flag": "低", "confidence": 0.95, "risks": [], "review_priority": "low"},
+    {"raw_name": "RBC 红细胞", "standard_name": "红细胞计数", "category": "血细胞", "value": 2.63, "text_value": "", "unit": "10^12/L", "reference_range": "3.5-5", "abnormal_flag": "低", "confidence": 0.95, "risks": [], "review_priority": "low"},
+    {"raw_name": "HGB 血红蛋白", "standard_name": "血红蛋白", "category": "血细胞", "value": 96, "text_value": "", "unit": "g/L", "reference_range": "110-150", "abnormal_flag": "低", "confidence": 0.95, "risks": [], "review_priority": "low"}
+  ],
+  "summary": "84岁高龄患者血常规检查显示：白细胞和中性粒细胞偏高，提示可能存在感染或炎症反应；红细胞、血红蛋白和红细胞压积偏低，提示贫血；血小板计数正常；红细胞相关参数多项异常。结合临床诊断股骨颈骨折，建议关注术后感染风险和贫血纠正。",
+  "table_structure_analysis": {
+    "overall_risk_level": "low",
+    "has_possible_shift": false,
+    "column_risks": [],
+    "row_risks": []
+  },
+  "confidence_check": {
+    "extraction_confidence": 92,
+    "identity_match_score": 80,
+    "consistency_score": 88,
+    "total_archive_confidence": 86,
+    "hard_conflict": false,
+    "conflict_notes": "患者姓名部分模糊无法确认，年龄84岁与老爹年龄接近，无其他身份冲突",
+    "archive_recommendation": "可归档"
+  },
+  "raw_extract": {
+    "ocr_text": "秭归县两河口镇卫生院检验报告单 科别:外科 床号:03 临床诊断:股骨颈骨折 采样时间:2023-08-30 年龄:84岁 标本种类:全血 WBC白细胞10.37↑ NEUT#中性粒细胞数9.15↑ LYM#淋巴细胞数0.76↓ RBC红细胞2.63↓ HGB血红蛋白96↓"
+  }
+}

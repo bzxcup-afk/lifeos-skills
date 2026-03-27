@@ -1,0 +1,12 @@
+{
+  "medical_archive": {
+    "app_token": "DtWnbquyZaIj9xsWLSIcagjQnAc",
+    "tables": {
+      "raw_reports": "tblnzCb5t90idIBy",
+      "reports_master": "tblb0LB9FmoBSyQc",
+      "indicators_detail": "tbl37m0LN99UvCi6",
+      "health_master": "tblqXVFHcREZWU6u"
+    },
+    "created_at": "2026-03-21"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "inbox_system": {
+    "app_token": "DtWnbquyZaIj9xsWLSIcagjQnAc",
+    "inbox_table_id": "tblkcow4prsTlpva",
+    "reply_table_id": "tbl8LxXXXXXXXXXX",
+    "system_log_table_id": "tbl9XxXXXXXXXXXX",
+    "task_handlers": {
+      "coding": "cli_a92ed6e39938dbd2"
+    }
+  },
+  "workflow": {
+    "steps": [
+      "1. 发现新任务后将收件箱记录状态改为「执行中」",
+      "2. 在系统日志记录「开始执行」",
+      "3. 执行任务",
+      "4. 在回复表提交结果（执行结果、详情、是否需要拍板）",
+      "5. 收件箱记录状态改为「已完成」",
+      "6. 系统日志记录「执行完成」"
+    ]
+  }
+}

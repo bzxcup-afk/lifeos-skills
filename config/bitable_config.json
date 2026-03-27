@@ -1,0 +1,181 @@
+{
+  "bitables": {
+    "lifeos_jin": {
+      "name": "金 - LifeOS",
+      "app_token": "DtWnbquyZaIj9xsWLSIcagjQnAc",
+      "owner_profile_id": "001",
+      "owner_feishu_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+      "tables": {
+        "profile": "tbl2rpgHhR9rm6m0",
+        "daily_log": "tbl9i2SehAhTZKrg",
+        "event_log": "tblEyhr3CKUxqSgc",
+        "medical_records": "tblIvTWyBUopNeyt",
+        "health_knowledge": "tblNyrMIcXTZK3Jz",
+        "rules": "tbl2Sbdeq3jXx4Lf",
+        "weekly_plan": "tblkHBrurIm6f0j0",
+        "weekly_plan_detail": "tblGHnXFij97QF9d",
+        "medication_supplement_list": "tblDX3SHgxlFTsPI"
+      }
+    },
+    "lifeos_laolao": {
+      "name": "老爹 - LifeOS",
+      "app_token": "ILxkbi8gwaQBK4srjcSczYWZncb",
+      "owner_profile_id": "004",
+      "owner_feishu_id": "ou_4b26a077c87d79eff1bbf75686453d64",
+      "remark": "家庭成员，老爹",
+      "tables": {
+        "profile": "tblMN7JlZ5Nn3mwh",
+        "daily_log": "tblcHvMuHzQjfVuc",
+        "medical_records": "tblizlZOzjd4BMrZ",
+        "health_knowledge": "tbli9IrGQxgHyhiQ",
+        "rules": "tbl3TdjtkaveJ7Il",
+        "event_log": "tblF5y0AQXzKuF3T",
+        "weekly_plan": "tbl3FD8odjkbryPT",
+        "medication_supplement_list": "tblZF51QQv5FvknE",
+        "weekly_plan_detail": "tblxWIxzwQMM75V7"
+      }
+    },
+    "lifeos_laoma": {
+      "name": "老妈 - LifeOS",
+      "app_token": "LDk3b3PGtaGbDVsjOV1cavxun2g",
+      "owner_profile_id": "003",
+      "owner_feishu_id": "ou_899f67f3779a07320c4084cc972c294b",
+      "remark": "新增家庭成员",
+      "tables": {
+        "profile": "tblbkkdYGgGhgmaE",
+        "daily_log": "tbl4ULh25PTrm7tI",
+        "medical_records": "tblnBZ7fMQaE6iQ8",
+        "health_knowledge": "tbl3DrtdzJO2f87P",
+        "rules": "tblcn0E9ugfxwOGB",
+        "event_log": "tblA2lPCIHlCWNyr",
+        "weekly_plan": "tblgek0NyLo20r8Z",
+        "medication_supplement_list": "tblDVTQiX3viOAoK",
+        "weekly_plan_detail": "tblPtqjYWKeuBMBd"
+      }
+    },
+    "lifeos_fangfang": {
+      "name": "芳芳 - LifeOS",
+      "app_token": "Y2pxbRjm8avmLUsnH8jc2K5rnHL",
+      "owner_profile_id": "002",
+      "owner_feishu_id": "ou_304b7fa2d113ed2310377f23fa8c4b90",
+      "remark": "群聊中的家庭成员，金的妻子",
+      "tables": {
+        "profile": "tbl6sw7TZ4XyMruk",
+        "daily_log": "tblbr0BfgeJ0Vd0a",
+        "event_log": "tblfhpk4aLy1n43q",
+        "medical_records": "tblxWFjnZYcgoA7d",
+        "health_knowledge": "tbl5ZEMDMRJoi8o1",
+        "rules": "tblFQXpFCcM2njxZ",
+        "weekly_plan": "tblUgzpwaUmiBasl",
+        "medication_supplement_list": "tblxnAfqOrswG98L",
+        "weekly_plan_detail": "tblR15CGQ0oBxZmB"
+      }
+    }
+  },
+  "default_bitable": "lifeos_jin",
+  "identity_mapping": [
+    {
+      "chat_type": "direct",
+      "chat_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+      "chat_key": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+      "name": "金",
+      "names": [
+        "金",
+        "老金",
+        "阿金",
+        "Jin"
+      ],
+      "bitable_key": "lifeos_jin",
+      "profile_id": "001"
+    },
+    {
+      "chat_type": "direct",
+      "chat_id": "ou_304b7fa2d113ed2310377f23fa8c4b90",
+      "chat_key": "ou_304b7fa2d113ed2310377f23fa8c4b90",
+      "name": "芳芳",
+      "names": [
+        "芳芳",
+        "方芳"
+      ],
+      "bitable_key": "lifeos_fangfang",
+      "profile_id": "002"
+    },
+    {
+      "chat_type": "direct",
+      "chat_id": "ou_899f67f3779a07320c4084cc972c294b",
+      "chat_key": "ou_899f67f3779a07320c4084cc972c294b",
+      "name": "老妈",
+      "names": [
+        "老妈",
+        "妈妈",
+        "母亲"
+      ],
+      "bitable_key": "lifeos_laoma",
+      "profile_id": "003"
+    },
+    {
+      "chat_type": "direct",
+      "chat_id": "ou_4b26a077c87d79eff1bbf75686453d64",
+      "chat_key": "ou_4b26a077c87d79eff1bbf75686453d64",
+      "name": "老爹",
+      "names": [
+        "老爹",
+        "老爸",
+        "爸爸",
+        "父亲"
+      ],
+      "bitable_key": "lifeos_laolao",
+      "profile_id": "004"
+    },
+    {
+      "chat_type": "group",
+      "chat_id": "oc_2b05143b882ca4e0d473c77c3257ffc4",
+      "chat_key": "group:oc_2b05143b882ca4e0d473c77c3257ffc4",
+      "name": "芳芳",
+      "names": [
+        "芳芳",
+        "方芳",
+        "???",
+        "???"
+      ],
+      "bitable_key": "lifeos_fangfang",
+      "profile_id": "002"
+    },
+    {
+      "chat_type": "group",
+      "chat_id": "oc_7bb4031987aa7d72e6eaba166000e742",
+      "chat_key": "group:oc_7bb4031987aa7d72e6eaba166000e742",
+      "name": "阮萍",
+      "names": [
+        "阮萍"
+      ],
+      "bitable_key": "lifeos_laoma",
+      "profile_id": "003"
+    },
+    {
+      "chat_type": "group",
+      "chat_id": "oc_e6f4934bd9394f3eebad6093f81fcdee",
+      "chat_key": "group:oc_e6f4934bd9394f3eebad6093f81fcdee",
+      "name": "老爸",
+      "names": [
+        "老爸",
+        "老爹",
+        "爸爸",
+        "父亲",
+        "???",
+        "???",
+        "???",
+        "???"
+      ],
+      "bitable_key": "lifeos_laolao",
+      "profile_id": "004"
+    }
+  ],
+  "updated_at": "2026-03-20",
+  "health_evaluation_table_ids": {
+    "lifeos_jin": "tblj9S1vxy5e2ynC",
+    "lifeos_laolao": "tblUxiYucwJTwKrm",
+    "lifeos_laoma": "tbluDsrg6YFMBj7o",
+    "lifeos_fangfang": "tblAyJwO747A1eE9"
+  }
+}

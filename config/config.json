@@ -1,0 +1,15 @@
+{
+  "database": {
+    "path": "data/lifeos.db",
+    "backup_dir": "data/backups/"
+  },
+  "profiles": {
+    "001": { "name": "金", "default": true },
+    "002": { "name": "芳芳" },
+    "003": { "name": "老妈" },
+    "004": { "name": "老爹" }
+  },
+  "feishu_export": {
+    "enabled": false
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "name": "医疗报告归档助手",
+  "version": "1.1",
+  "architecture": "双阶段",
+  "created_at": "2026-03-21",
+  "updated_at": "2026-03-21",
+  "lifeos_app_token": "DtWnbquyZaIj9xsWLSIcagjQnAc",
+  "tables": {
+    "raw_reports": {
+      "table_id": "tblnzCb5t90idIBy",
+      "name": "原始报告表",
+      "fields": [
+        "record_id", "upload_time", "exam_date", "report_type", "hospital",
+        "file_link", "ocr_text", "indicators_json", "extraction_status",
+        "extraction_confidence", "identity_match_score", "consistency_score",
+        "total_confidence", "hard_conflict", "conflict_notes",
+        "archive_recommendation", "confirmed", "confirmed_time",
+        "key_abnormals", "conclusion_summary", "notes"
+      ]
+    },
+    "reports_master": {
+      "table_id": "tblb0LB9FmoBSyQc",
+      "name": "报告主表",
+      "fields": [
+        "report_id", "exam_date", "report_type", "hospital",
+        "conclusion_summary", "abnormal_count", "key_abnormals",
+        "raw_report_link", "notes"
+      ]
+    },
+    "indicators_detail": {
+      "table_id": "tbl37m0LN99UvCi6",
+      "name": "指标明细表",
+      "fields": [
+        "detail_id", "report_id", "exam_date", "category",
+        "raw_name", "standard_name", "value", "text_value",
+        "unit", "reference_range", "abnormal_flag", "confidence"
+      ]
+    },
+    "health_master": {
+      "table_id": "tblqXVFHcREZWU6u",
+      "name": "健康主档案",
+      "fields": [
+        "profile_id", "last_exam_date", "blood_pressure_systolic",
+        "blood_pressure_diastolic", "fasting_glucose", "hba1c",
+        "ldl_c", "tc", "tg", "ua", "alt", "ast", "creatinine",
+        "bun", "key_abnormal_summary", "last_updated"
+      ]
+    }
+  },
+  "high_frequency_indicators": [
+    "FPG", "HbA1c", "LDL-C", "HDL-C", "TC", "TG", "UA", "ALT", "AST", "Cr", "BUN"
+  ],
+  "report_types": [
+    "血常规", "肝功能", "肾功能", "血脂", "血糖/HbA1c",
+    "尿酸/尿常规", "影像报告", "出院小结", "病理报告", "处方单", "其他"
+  ]
+}
