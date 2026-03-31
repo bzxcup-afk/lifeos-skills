@@ -216,6 +216,7 @@ CREATE TABLE IF NOT EXISTS user_preferences (
     food_dislikes TEXT,                 -- 不喜欢的食物
     cuisine_likes TEXT,                 -- 喜欢的菜系
     nutrition_preferences TEXT,         -- 营养方案偏好
+    lifestyle_constraints TEXT,          -- 生活约束(不抽烟/不喝酒/早睡等)
     execution_preferences TEXT,          -- 执行偏好
     notes TEXT,                         -- 备注/变更历史
     source TEXT,                        -- 来源: dialogue_extract/guided_answer/manual

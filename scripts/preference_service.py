@@ -46,6 +46,7 @@ class PreferenceService:
             'food_dislikes': '',
             'cuisine_likes': '',
             'nutrition_preferences': '',
+            'lifestyle_constraints': '',
             'execution_preferences': '',
             'notes': '',
             'source': '',
@@ -110,7 +111,7 @@ class PreferenceService:
             'sports_likes', 'sports_dislikes',
             'food_likes', 'food_dislikes',
             'cuisine_likes', 'nutrition_preferences',
-            'execution_preferences', 'notes'
+            'lifestyle_constraints', 'execution_preferences', 'notes'
         ]
         
         if field not in allowed_fields:
@@ -166,7 +167,7 @@ class PreferenceService:
             'sports_likes', 'sports_dislikes',
             'food_likes', 'food_dislikes',
             'cuisine_likes', 'nutrition_preferences',
-            'execution_preferences'
+            'lifestyle_constraints', 'execution_preferences'
         ]
         
         for field in preference_fields:
@@ -227,11 +228,13 @@ def extract_preferences_from_text(text: str) -> Dict[str, Any]:
             '喜欢散步', '喜欢跑步', '喜欢游泳', '喜欢骑车', '喜欢打球',
             '喜欢瑜伽', '喜欢爬山', '喜欢力量训练', '喜欢健身', '喜欢打球',
             '喜欢体操', '喜欢跳舞', '喜欢太极', '喜欢广场舞',
-            '倾向散步', '倾向跑步', '倾向游泳'
+            '喜欢打篮球', '喜欢篮球', '喜欢足球', '喜欢羽毛球', '喜欢乒乓球',
+            '倾向散步', '倾向跑步', '倾向游泳', '倾向打球'
         ],
         'sports_dislikes': [
             '不喜欢跑步', '不喜欢游泳', '不喜欢打球', '不喜欢剧烈运动',
-            '不喜欢力量训练', '排斥跑步', '排斥游泳'
+            '不喜欢力量训练', '排斥跑步', '排斥游泳',
+            '不喜欢篮球', '不喜欢足球', '不喜欢羽毛球'
         ],
         'cuisine_likes': [
             '喜欢粤菜', '喜欢川菜', '喜欢湘菜', '喜欢鲁菜', '喜欢浙菜',
@@ -263,6 +266,24 @@ def extract_preferences_from_text(text: str) -> Dict[str, Any]:
             '喜欢早起', '习惯晚睡', '早起困难', '晚上更有精力'
         ]
     }
+
+    # 生活约束提取
+    lifestyle_patterns = {
+        'lifestyle_constraints': [
+            '不抽烟', '不吸烟', '戒烟',
+            '不喝酒', '不饮酒', '戒酒',
+            '不熬夜', '早睡早起', '作息规律',
+            '不喝咖啡', '少油少盐', '少糖'
+        ]
+    }
+    
+    for field, patterns in lifestyle_patterns.items():
+        for pattern in patterns:
+            if pattern in text_lower:
+                keyword = pattern
+                results['preferences'][field] = keyword
+                results['matched'] = True
+                break
     
     for field, patterns in execution_patterns.items():
         for pattern in patterns:
@@ -342,6 +363,8 @@ def build_preference_context(profile_id: str) -> str:
         lines.append(f"- 不喜欢的食物: {prefs['food_dislikes']}")
     if prefs.get('nutrition_preferences'):
         lines.append(f"- 营养偏好: {prefs['nutrition_preferences']}")
+    if prefs.get('lifestyle_constraints'):
+        lines.append(f"- 生活约束: {prefs['lifestyle_constraints']}")
     if prefs.get('execution_preferences'):
         lines.append(f"- 执行偏好: {prefs['execution_preferences']}")
     if prefs.get('notes'):
