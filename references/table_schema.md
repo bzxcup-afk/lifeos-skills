@@ -38,8 +38,8 @@
 | chronic_conditions | 多行文本 | 慢性病 |
 | past_major_issues | 多行文本 | 既往重大问题 |
 | family_history | 多行文本 | 家族病史 |
-| long_term_goal | 单选 | 长期目标（减脂/增肌/维持/恢复） |
-| current_phase | 单选 | 当前阶段（减脂期/增肌期/维持期/恢复期） |
+| long_term_goal | 单选 | 长期目标（减脂/增肌/维持/恢复/抗衰/养生） |
+| current_phase | 单选 | 当前阶段（减脂期/增肌期/维持期/恢复期/抗衰期/养生期） |
 | life_principles | 多行文本 | 生活原则 |
 | health_constraints | 多行文本 | 健康限制 |
 
@@ -273,7 +273,7 @@
 | week_start | 日期 | 周开始日期 |
 | week_end | 日期 | 周结束日期 |
 | plan_status | 单选 | 状态（草稿/生效中/已完成/已调整） |
-| phase | 单选 | 阶段（减脂期/增肌期/维持期/恢复期） |
+| phase | 单选 | 阶段（减脂期/增肌期/维持期/恢复期/抗衰期/养生期） |
 | weekly_goal | 多行文本 | 本周主要目标（一句话） |
 | focus_areas | 多选 | 本周重点领域 |
 | training_target | 多行文本 | 本周训练安排 |
