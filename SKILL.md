@@ -157,6 +157,36 @@ Weekly Plan + Today Status -> Daily Execution Advice
 - 我今天中午吃了面和炸鸡 -> 更新 `daily_log.today_summary` / `diet_status`
 - 我今天量了血压，68 118 -> 解析为 `118/68`
 
+#### 偏好自动提取话术（重要！）
+
+**必须自动提取并写入 `user_preferences` 表：**
+
+| 用户表达 | 写入字段 | 示例值 |
+|---------|---------|--------|
+| "我喜欢XX" | sports_likes | "散步, 游泳, 打篮球" |
+| "我不喜欢XX" | sports_dislikes | "跑步" |
+| "我喜欢粤菜/川菜..." | cuisine_likes | "粤菜, 清淡" |
+| "我倾向地中海饮食" | nutrition_preferences | "地中海饮食" |
+| "我不抽烟/不喝酒" | lifestyle_constraints | "不抽烟, 不喝酒" |
+| "早起锻炼/晚间锻炼" | execution_preferences | "晚间锻炼" |
+
+**执行流程：**
+```python
+# 每条消息都应执行偏好检测
+from preference_service import extract_preferences_from_text, get_preference_service
+
+result = extract_preferences_from_text(user_message)
+if result['matched']:
+    svc = get_preference_service(profile_id)
+    for field, value in result['preferences'].items():
+        svc.update_single_field(field, value, source='dialogue_extract', confidence='high')
+    # 回复简短确认："好的，已记住你喜欢XX"
+```
+
+**禁止：**
+- 临时性表达不要当作偏好写入（如"今天想吃火锅"）
+- 不要对同一偏好反复确认
+
 #### 新版数据记录方式（本地 SQLite）
 
 **2026-03-26 改版后，数据写入本地 SQLite 而非飞书 Bitable：**
@@ -264,6 +294,7 @@ chat_id + name → identity_mapping → profile_id (001/002/003/004) → 本地 
 | food_dislikes | TEXT | 不喜欢的食物 |
 | cuisine_likes | TEXT | 喜欢的菜系 |
 | nutrition_preferences | TEXT | 营养方案偏好 |
+| lifestyle_constraints | TEXT | 生活约束(不抽烟/不喝酒/早睡等) |
 | execution_preferences | TEXT | 执行偏好 |
 | notes | TEXT | 备注/变更历史 |
 | source | TEXT | 来源 (dialogue_extract/guided_answer/manual) |
