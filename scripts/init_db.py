@@ -205,6 +205,25 @@ CREATE TABLE IF NOT EXISTS rules (
     notes TEXT,
     created_at TEXT DEFAULT CURRENT_TIMESTAMP
 );
+
+-- 个人偏好表
+CREATE TABLE IF NOT EXISTS user_preferences (
+    pref_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    profile_id TEXT NOT NULL UNIQUE,
+    sports_likes TEXT,                  -- 喜欢的运动
+    sports_dislikes TEXT,               -- 不喜欢的运动
+    food_likes TEXT,                    -- 喜欢的食物
+    food_dislikes TEXT,                 -- 不喜欢的食物
+    cuisine_likes TEXT,                 -- 喜欢的菜系
+    nutrition_preferences TEXT,         -- 营养方案偏好
+    execution_preferences TEXT,          -- 执行偏好
+    notes TEXT,                         -- 备注/变更历史
+    source TEXT,                        -- 来源: dialogue_extract/guided_answer/manual
+    confidence TEXT,                    -- 置信度: high/medium/low
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+    updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(profile_id) REFERENCES profiles(profile_id)
+);
 """
 
 def init():

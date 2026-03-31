@@ -17,7 +17,8 @@ description:   家庭 LifeOS 健康助手，用于 Feishu 群聊/私聊场景下
   • 周计划：「这周有什么安排」「帮我做本周计划」「今天该做什么」
   • 医疗报告：发送体检图片、「归档医疗报告」、「上传体检报告」
   • 健康评估：「健康评估」「评估一下」「评估现在健康状况」「给我做个健康评估」
-  • 药品提醒：提到药名（阿托伐他汀、二甲双胍等）、吃药、服药、「我在吃XXX」、确认「已吃」
+  • 药品：提到药名（阿司匹林、硝苯地平、二甲双胍等）、吃药、服药、「我在吃XXX」、确认「已吃」
+    → **必须走 medicine 模块**，返回用药提示 + 询问时间槽，不能只记录
 ---
 
 # LifeOS Main
@@ -195,6 +196,24 @@ chat_id + name → identity_mapping → profile_id (001/002/003/004) → 本地 
 - 飞书 Bitable 仅保留身份识别功能（`identity_mapping`）
 
 
+## 药品记录规则（重要）
+
+当用户提到药名时，**必须**执行以下流程，不能只记录：
+
+```
+用户：「我在吃硝苯地平、阿司匹林」
+↓
+智子：
+1. 识别药名（硝苯地平 → 降压药，阿司匹林 → 抗血小板）
+2. 返回用药提示（禁忌、服用时间、副作用）
+3. 询问时间槽（早餐后/睡前等）
+4. 用户回复时间槽
+↓
+写入 medicine_plans.json → 完成
+```
+
+**禁止：** 只记录「已记录用药信息」就结束，不引导设置提醒。
+
 ### 5. 基本资料自动更新
 
 当用户主动告知性别、年龄等信息时，自动解析并写入 profile 表。
@@ -225,7 +244,104 @@ chat_id + name → identity_mapping → profile_id (001/002/003/004) → 本地 
 
 ---
 
-5. 医疗与风险边界
+## 个人偏好模块 V1.0
+
+### 模块位置
+`scripts/preference_service.py`
+
+### 用途
+记录用户长期生活偏好，为周计划、饮食建议、运动建议提供参考。
+
+### 表结构
+**表名：`user_preferences`**
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| profile_id | TEXT | 主键，关联 profiles |
+| sports_likes | TEXT | 喜欢的运动 |
+| sports_dislikes | TEXT | 不喜欢的运动 |
+| food_likes | TEXT | 喜欢的食物 |
+| food_dislikes | TEXT | 不喜欢的食物 |
+| cuisine_likes | TEXT | 喜欢的菜系 |
+| nutrition_preferences | TEXT | 营养方案偏好 |
+| execution_preferences | TEXT | 执行偏好 |
+| notes | TEXT | 备注/变更历史 |
+| source | TEXT | 来源 (dialogue_extract/guided_answer/manual) |
+| confidence | TEXT | 置信度 (high/medium/low) |
+| created_at | TEXT | 创建时间 |
+| updated_at | TEXT | 更新时间 |
+
+### 提取规则
+
+**触发条件：** 用户明确表达长期偏好时自动提取
+
+**应该提取的表达：**
+- "我喜欢散步，不喜欢跑步"
+- "我比较喜欢粤菜"
+- "我现在倾向地中海饮食"
+- "家里老人适合清淡一点"
+
+**不应提取的临时表达：**
+- "今天想吃火锅"
+- "今晚吃清淡点"
+
+**提取逻辑：**
+```python
+from preference_service import extract_preferences_from_text, get_preference_service
+
+# 从文本提取偏好
+result = extract_preferences_from_text("我喜欢散步，不喜欢跑步")
+# result = {'matched': True, 'preferences': {'sports_likes': '散步', 'sports_dislikes': '跑步'}}
+
+# 如果匹配到偏好，自动写入
+if result['matched']:
+    svc = get_preference_service(profile_id)
+    for field, value in result['preferences'].items():
+        svc.update_single_field(field, value, source='dialogue_extract', confidence='high')
+```
+
+### 引导提问
+
+**触发场景：** 仅在以下场景进行单轮补问
+1. 用户请求生成饮食计划，但偏好信息不足
+2. 用户请求生成运动计划，但偏好信息不足
+3. 用户首次建立偏好档案时
+
+**提问模板：**
+```python
+from preference_service import get_guidance_question, get_preference_service
+
+# 检查偏好完整性
+svc = get_preference_service(profile_id)
+if not svc.is_preference_complete_for('sports'):
+    question = get_guidance_question('sports')
+    # question: "你平时更喜欢什么运动方式？比如散步、游泳、力量训练、瑜伽等"
+```
+
+### 调用规则
+
+在以下功能生成前，自动读取偏好并注入上下文：
+
+```python
+from preference_service import build_preference_context
+
+# 构建偏好上下文
+ctx = build_preference_context(profile_id)
+# ctx = """【用户偏好信息】
+# - 喜欢的运动: 散步, 游泳
+# - 喜欢的菜系: 粤菜, 清淡
+# """
+```
+
+**接入点：**
+- 周计划生成
+- 饮食建议
+- 运动建议
+- 健康生活方式建议
+
+---
+
+## 6. 医疗与风险边界
 
 必须遵守：
 - 不编造历史数据
@@ -276,6 +392,7 @@ chat_id + name → identity_mapping → profile_id (001/002/003/004) → 本地 
 - `scripts/medication_service.py`：用药管理服务
 - `scripts/assessment_service.py`：评估服务
 - `scripts/health_evaluation.py`：健康评估入口
+- `scripts/preference_service.py`：个人偏好服务
 
 预留脚本（暂不实现）：
 - `scripts/feishu_export.py`：飞书导出接口
