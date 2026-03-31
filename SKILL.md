@@ -99,10 +99,24 @@ Weekly Plan + Today Status -> Daily Execution Advice
 3. 读取最近 7 天 `event_log`
 4. 读取近期 `medical_records`
 5. 读取已启用 `rules`
-6. 必要时读取 `medication_supplement_list`
-7. **先询问用户要简单版还是详细版**
-8. 生成并写入 `weekly_plan`
-9. 若为详细版，再写入 `weekly_plan_detail`（7 天明细）
+6. **读取用户偏好表 `user_preferences`**（调用 `build_preference_context(profile_id)`）
+7. 必要时读取 `medication_supplement_list`
+8. **先询问用户要简单版还是详细版**
+9. 生成并写入 `weekly_plan`
+10. 若为详细版，再写入 `weekly_plan_detail`（7 天明细）
+
+**读取偏好示例：**
+```python
+from preference_service import build_preference_context
+
+# 在步骤6读取偏好上下文
+pref_context = build_preference_context(profile_id)
+# 输出示例：
+# 【用户偏好信息】
+# - 喜欢的运动: 打篮球, 瑜伽
+# - 执行偏好: 定期拉伸
+# - 生活约束: 不抽烟, 不喝酒
+```
 
 版本询问模板：
 
@@ -121,8 +135,9 @@ Weekly Plan + Today Status -> Daily Execution Advice
 1. 查询当前生效的 `weekly_plan`
 2. 查询今日 `daily_log`
 3. 必要时读取 `event_log` / `medical_records`
-4. 判断今日 `state_tags`
-5. 基于周计划 + 当前状态 + rules 输出建议
+4. **读取用户偏好 `user_preferences`**（调用 `build_preference_context(profile_id)`）
+5. 判断今日 `state_tags`
+6. 基于周计划 + 当前状态 + 偏好 + rules 输出建议
 
 原则：
 - 正常状态：沿用周计划

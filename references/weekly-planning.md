@@ -112,6 +112,14 @@
 - `medical_records` 的异常决定安全边界
 - 医疗建议优先级高于一般规则
 
+### 用户偏好
+必须读取 `user_preferences` 表，优先考虑：
+- `sports_likes` / `sports_dislikes`：安排喜欢的运动类型，避免不喜欢的
+- `cuisine_likes` / `food_likes`：饮食建议优先选择喜欢的菜系
+- `lifestyle_constraints`：不违反生活约束（如不抽烟、不喝酒）
+- `execution_preferences`：根据执行偏好安排时间（如"晚间锻炼"）
+- `nutrition_preferences`：如有营养方案偏好（如地中海饮食），需在饮食建议中体现
+
 ### 规则触发示例
 - `R002`: fatigue >= 8 -> 转恢复日
 - `R003`: 连续 2 天高疲劳 -> 降负荷
