@@ -19,6 +19,8 @@ description:   家庭 LifeOS 健康助手，用于 Feishu 群聊/私聊场景下
   • 健康评估：「健康评估」「评估一下」「评估现在健康状况」「给我做个健康评估」
   • 药品：提到药名（阿司匹林、硝苯地平、二甲双胍等）、吃药、服药、「我在吃XXX」、确认「已吃」
     → **必须走 medicine 模块**，返回用药提示 + 询问时间槽，不能只记录
+  • 健康数据导入：发送图片 + 「记录健康数据」/ 「健康数据」
+    → **必须走 health_data 模块**，调用识图 → 写入 health_data_logs 表
 ---
 
 # LifeOS Main
@@ -54,30 +56,134 @@ Weekly Plan + Today Status -> Daily Execution Advice
 
 #### 身份识别硬规则（Feishu 必须遵守）
 
-在 Feishu 群聊或私聊中，**使用 `chat_id + name` 组合进行身份识别**。
+**核心原则：消息来自谁，就路由给谁。不做任何推测，不做假设。**
 
-**新的身份来源优先级：**
-1. **`chat_id` + `name` 组合匹配**（同时满足）
-   - `chat_id` 来自 runtime metadata 的 `chat_id`（私聊）或 `chat_type`+`chat_id`（群聊）
-   - `name` 来自 runtime metadata 的 `sender_name` 或用户自报
-2. 已存在的绑定关系（作为 fallback）
-3. 用户文本里自报身份（仅当前两者都没有时）
+##### 消息来源元数据（优先级从高到低）
 
-**如果 `chat_id + name` 组合匹配到 `config/bitable_config.json` 中的 `identity_mapping`：**
-- 必须直接采用该身份路由
-- 获取对应的 `profile_id`（如 `001`），后续操作本地 SQLite 数据库
-- **数据写入本地 SQLite（`data/lifeos.db`），不再写入飞书 Bitable**
-- **不得再次询问"你是谁""请先绑定身份""你是老金还是芳芳"**
+| 来源 | 字段 | 说明 |
+|------|------|------|
+| runtime metadata | `chat_id` | 会话 ID（私聊=用户ID，群聊=群ID） |
+| runtime metadata | `sender_name` | 发送者显示名称 |
+| runtime metadata | `sender_id` | 发送者唯一 ID（备用） |
+| runtime metadata | `is_group_chat` | 是否群聊 |
 
-**实战规则：**
-- `chat_id` 以**机器人实际收到消息时 runtime 暴露的 chat_id** 为准。
-- `name` 优先从 metadata 的 `sender` 字段获取，其次从用户自报获取。
-- **不再使用 `sender_id` 作为身份识别依据**（因其可变且不唯一）。
+##### 身份识别流程（严格按顺序执行）
 
-只有在以下情况，才允许询问身份或绑定：
-- metadata 里没有 chat_id 或 name
-- `chat_id + name` 组合无法匹配任何已知用户
-- 当前消息平台不提供可信发送者身份
+```
+步骤1：从 runtime metadata 获取 chat_id、sender_name、sender_id
+   ↓
+步骤2：2/3 字段匹配（鲁棒性增强）
+   - 用 chat_id + sender_name 匹配 identity_mapping
+   - 用 chat_id + sender_id 匹配 identity_mapping  
+   - 用 sender_name + sender_id 匹配 identity_mapping
+   ↓ 任意一种匹配成功 → 直接确定身份 → 获取 profile_id → 完成
+   ↓
+步骤3：单字段 fallback（仅当步骤2全部失败时）
+   - 用 sender_name 单独匹配 identity_mapping.names
+   ↓ 命中 → 直接确定身份 → 获取 profile_id → 完成
+   ↓
+步骤4：以上全部未命中 → 询问用户确认身份（仅此时）
+```
+
+**注意：`default_bitable` 字段不得用于身份路由。** identity_mapping 是身份路由的唯一来源。
+
+##### 群聊身份识别要点
+
+**群聊中，消息是发给机器人的，但 sender 是真正的发言者。**
+
+- `chat_id` = 群 ID（如 `oc_2b05143b882ca4e0d473c77c3257ffc4`）
+- `sender_name` = 发言者的显示名称
+- `is_group_chat = true` 表示这是群聊
+
+**群聊中 `@机器人` 的消息：**
+- sender = 实际发言的家庭成员（不是机器人）
+- 机器人只负责处理消息，不参与身份识别
+- sender_name 就是发言者本人
+
+##### identity_mapping 匹配规则
+
+```json
+// 群聊映射示例
+{
+  "chat_type": "group",
+  "chat_id": "oc_2b05143b882ca4e0d473c77c3257ffc4",
+  "name": "芳芳",
+  "names": ["芳芳", "方芳"],
+  "bitable_key": "lifeos_fangfang",
+  "profile_id": "002"
+}
+
+// 直聊映射示例
+{
+  "chat_type": "direct",
+  "chat_id": "ou_304b7fa2d113ed2310377f23fa8c4b90",
+  "name": "芳芳",
+  "names": ["芳芳", "方芳"],
+  "bitable_key": "lifeos_fangfang",
+  "profile_id": "002"
+}
+```
+
+##### 禁止事项（硬规则，违反则报错）
+
+1. **禁止读取 bitable_ops.py** - 严禁使用 `bitable_ops.py` 读取飞书数据，必须用 `chat_adapter.py` 或 `local_adapter.py` 读取本地 SQLite
+2. **禁止用 sender_id 做主要匹配** - sender_id 只能作为备用
+3. **禁止用 chat_id 单独匹配** - chat_id 必须配合 sender_name 或 sender_id 一起使用
+4. **禁止推测身份** - 匹配不上就询问，不准自己编
+5. **禁止重复确认身份** - 已匹配到的成员，回复中不得再出现"请问你是谁"
+6. **禁止用 default_bitable 做身份路由** - default_bitable 只是备用配置，不得用于替代 identity_mapping
+
+##### 匹配成功后的行为要求
+
+一旦通过以上流程确定身份：
+- 直接获取 `profile_id`（如 `001`、`002`）
+- 直接路由到对应的 SQLite 数据库或 Bitable
+- **不得再追问"你是谁""请先绑定身份"等重复身份确认问题**
+- 回复开头可以简单称呼确认（如"芳芳，你好"），但不能质疑身份
+
+##### 只有这三种情况才允许询问身份
+
+1. `chat_id`、`sender_name` 全部无法获取
+2. `chat_id + sender_name` 组合无法匹配任何已知用户
+3. 当前消息平台不提供可信的发送者身份
+
+##### 身份识别示例
+
+**场景A：私聊（sender_name 正常）**
+```
+runtime: chat_id=ou_304b7fa2d113ed2310377f23fa8c4b90, sender_name=芳芳, sender_id=ou_304b7fa2d113ed2310377f23fa8c4b90
+↓
+chat_id + sender_name 匹配 → lifeos_fangfang → profile_id=002
+↓
+路由给芳芳
+```
+
+**场景B：群聊 @ 机器人（sender_name 异常，显示为 sender_id）**
+```
+runtime: chat_id=oc_2b05143b882ca4e0d473c77c3257ffc4, sender_name=ou_4c52d462605781e325fe079a22e99d1e, sender_id=ou_4c52d462605781e325fe079a22e99d1e
+↓
+chat_id + sender_id 匹配（sender_name 不匹配，但 2/3 匹配成功）→ lifeos_fangfang → profile_id=002
+↓
+路由给芳芳
+```
+
+**场景C：群聊中老爹的消息**
+```
+runtime: chat_id=oc_e6f4934bd9394f3eebad6093f81fcdee, sender_name=老爸, sender_id=ou_xxx
+↓
+chat_id + sender_name 匹配 → lifeos_laolao → profile_id=004
+↓
+路由给老爹
+```
+
+**场景D：2/3 匹配失败，需要询问**
+```
+runtime: chat_id=oc_unknown, sender_name=未知, sender_id=ou_unknown
+↓
+所有 2/3 匹配全部失败
+↓
+询问用户确认身份
+```
 
 如果需要表结构、字段含义、计划规则细节，读取：
 - `references/table_schema.md`
@@ -204,7 +310,11 @@ if result['matched']:
 
 #### 新版数据记录方式（本地 SQLite）
 
-**2026-03-26 改版后，数据写入本地 SQLite 而非飞书 Bitable：**
+**2026-03-26 改版后，数据读写全部使用本地 SQLite，禁用飞书 Bitable：**
+
+- **读取**：使用 `local_adapter.py` 或 `chat_adapter.py`
+- **写入**：使用 `local_adapter.py` 或 `lifeos_service.py`
+- **严禁使用 `bitable_ops.py`**（该脚本已废弃，仅保留用于飞书导出接口）
 
 ```python
 # 方式1：使用 chat_adapter.py（推荐，自动处理身份识别）
@@ -437,6 +547,8 @@ ctx = build_preference_context(profile_id)
 - `scripts/health_service.py`：健康数据服务（daily_log 等）
 - `scripts/medication_service.py`：用药管理服务
 - `scripts/assessment_service.py`：评估服务
+- `scripts/preference_service.py`：个人偏好服务
+- `health_data/`：健康数据截图导入模块（见下方详解）
 - `scripts/health_evaluation.py`：健康评估入口
 - `scripts/preference_service.py`：个人偏好服务
 
@@ -445,6 +557,129 @@ ctx = build_preference_context(profile_id)
 
 旧版脚本（已废弃）：
 - `scripts/bitable_ops.py`：旧版飞书读写，已被 `db.py` + `health_service.py` 替代
+
+---
+
+## 健康数据截图导入模块（health_data）
+
+### 模块位置
+`health_data/`
+
+### 功能概述
+通过小米健康 APP 截图识别导入健康数据，支持记录和查询。
+
+### 触发条件（必须同时满足）
+1. 文本包含：`记录健康数据` 或 `健康数据`
+2. 消息中包含图片
+
+### 触发判断
+```python
+from health_data.entry import check_trigger_and_tip
+
+result = check_trigger_and_tip(text, has_image=True)
+if result["should_activate"]:
+    # 需要执行导入流程
+else:
+    tip = result.get("tip")  # 如缺图片，返回提示
+```
+
+### 缺图片提示
+如果用户说"记录健康数据"但没有图片，返回：
+```
+请附上小米健康截图，我来帮你识别并记录。
+```
+
+### 导入流程
+```
+用户发截图 + "记录健康数据"
+    ↓
+1. 调用 image tool 识别截图（携带 prompt）
+    ↓
+2. 获取 LLM 返回的结构化 JSON
+    ↓
+3. 调用 import_from_screenshot 写入数据
+    ↓
+4. 返回确认消息
+```
+
+### LLM 识图 Prompt
+```
+IMAGE_PARSE_PROMPT = """你是一个专业的小米健康APP数据识别助手...
+（见 health_data/image_parser.py）"""
+```
+
+### 支持的指标
+| 中文名 | metric_type | granularity |
+|--------|-------------|-------------|
+| 步数 | steps | day |
+| 卡路里 | active_calories | day |
+| 中高强度分钟 | moderate_vigorous_minutes | day |
+| 活动次数 | activity_sessions | day |
+| 睡眠时长 | sleep_duration_minutes | day |
+| 心率 | heart_rate | instant |
+| 体重 | weight_kg | instant |
+| 血糖 | blood_glucose | instant |
+| 收缩压 | blood_pressure_systolic | instant |
+| 舒张压 | blood_pressure_diastolic | instant |
+
+### 血压处理
+- 格式 `128/84 mmHg` 自动拆分为两条记录
+- 无数值时返回提示：`检测到血压模块，但未识别到有效数值。`
+
+### 数据校验范围
+| 指标 | 最小值 | 最大值 |
+|------|--------|--------|
+| 心率 | 30 | 220 |
+| 血糖 | 1.0 | 40 |
+| 体重 | 20 | 300 |
+| 收缩压 | 60 | 260 |
+| 舒张压 | 30 | 180 |
+
+### 调用示例
+```python
+from health_data.entry import check_trigger_and_tip, import_from_screenshot
+
+# 1. 检查是否应触发
+result = check_trigger_and_tip("记录健康数据", has_image=True)
+
+# 2. 如果触发，用 image tool 识别后调用导入
+# image_path: 图片本地路径（如 C:\Users\Jin\.openclaw\media\inbound\img_xxx.jpg）
+# llm_json: LLM 返回的结构化 JSON
+import_result = import_from_screenshot(
+    profile_id="001",
+    user_id="ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    image_path="/path/to/image.jpg",
+    llm_json={
+        "source_app": "xiaomi_health",
+        "records": [
+            {"metric_type": "步数", "value": 5665, "unit": "步", "date": "2026-04-02", "granularity": "day", "raw_text": "5665步"}
+        ]
+    }
+)
+# import_result["reply_message"] 即用户看到的确认消息
+```
+
+### 查询功能
+支持自然语言查询：
+- `查看最近7天步数`
+- `查看最近30天体重变化`
+- `总结最近7天健康数据`
+
+```python
+from health_data.entry import query_health_data
+
+result = query_health_data("001", "查看最近7天步数")
+# result["formatted_data"]  # 供 LLM 使用的格式化数据
+# result["prompt"]           # LLM 总结 prompt
+```
+
+### 数据库表
+`health_data_logs` - 健康数据日志表
+
+### 注意事项
+- 图片路径：`C:\Users\Jin\.openclaw\media\inbound\`
+- 重复记录（同一图片同一指标）会自动跳过
+- 不合法数据（超范围）不会写入
 
 ## 配置
 
@@ -1172,33 +1407,41 @@ python scripts/check_medicine_reminders.py
 
 - 所有身份路由配置统一维护在 `config/bitable_config.json`
 - `bitables` 是"家庭成员 -> Bitable / profile"绑定的唯一来源
-- `identity_mapping` 是"runtime `chat_id + sender_name` -> 家庭成员身份"映射的唯一来源
-- 不要在业务脚本里硬编码 chat_id、sender_name 或成员到 Bitable 的映射关系
+- `identity_mapping` 是"runtime `sender_id / sender_name` -> 家庭成员身份"映射的唯一来源
+- **必须使用 `sender_id` 精确匹配 `owner_feishu_id` 作为首选匹配方式**
+- **不要在业务脚本里硬编码 chat_id、sender_name 或成员到 Bitable 的映射关系**
 
-### 运行时优先级
+### 运行时匹配顺序（优先级）
 
-1. 先用 runtime metadata 中的 `chat_id + sender_name` 命中 `identity_mapping`
-2. 如果未命中，再 fallback 到成员主绑定，如 `owner_feishu_id` 或 `owner_profile_id`
-3. 只有前两者都失败时，才允许询问用户身份，或依赖用户文本中的自报身份
+1. **2/3 字段匹配**（鲁棒性增强）
+   - `chat_id + sender_name` 组合匹配
+   - `chat_id + sender_id` 组合匹配
+   - `sender_name + sender_id` 组合匹配
+   - 任意一种成功 → 确定身份
+2. **单字段 fallback**（仅当 2/3 全部失败时）
+   - `sender_name` 单独匹配 `identity_mapping.names`
+3. 只有以上全部失败时，才允许询问用户身份
 
 ### 命中后的行为要求
 
-- 一旦 `identity_mapping` 命中，必须直接路由到对应的 Bitable / profile
-- 一旦 `identity_mapping` 命中，不得再追问"你是谁""请先绑定身份"等重复身份确认问题
-- `sender_id` 只能作为兼容信息，不能替代 `chat_id + sender_name` 成为主路由依据
+- 一旦通过 sender_id 或 sender_name 匹配成功，必须直接路由到对应的 Bitable / profile
+- 一旦匹配成功，不得再追问"你是谁""请先绑定身份"等重复身份确认问题
+- **禁止在回复中重复确认身份**（如"你是金对吧"），但可以用名字称呼（如"金，你好"）
 
 ### 维护规则
 
 - 新增家庭成员时：
   - 先在 `bitables` 中新增成员配置
-  - 再在 `identity_mapping` 中新增至少一条该成员的直聊映射
-  - 如果该成员会在固定群聊中使用，再补充对应群聊的真实 `chat_id` / `chat_key` 映射
+  - 再在 `identity_mapping` 中新增该成年的**直聊映射**（包含 `owner_feishu_id`）
+  - 如果该成员会在固定群聊中使用，再补充对应群聊的 `chat_id` / `chat_key` 映射
+  - **必须确保 `owner_feishu_id` 与直聊的 `chat_id` 一致**（都是用户的 open_id）
 - 修改成员昵称或别名时：
-  - 只修改 `identity_mapping.names`
+  - 只修改 `identity_mapping.names` 数组
 - 修改某条路由指向哪个成员、哪个 profile 时：
   - 修改 `identity_mapping.bitable_key` 和/或 `identity_mapping.profile_id`
 - 修改成员主身份 ID 时：
-  - 修改 `bitables.<member>.owner_feishu_id` 或相关主绑定字段
+  - 修改 `bitables.<member>.owner_feishu_id`
+  - 同时更新 `identity_mapping` 中对应的 `chat_id` 和 `owner_feishu_id`
 - 不要为了适配个例去改脚本逻辑；优先改 `config/bitable_config.json`
 
 ### 推荐的 `identity_mapping` 结构
@@ -1206,17 +1449,25 @@ python scripts/check_medicine_reminders.py
 ```json
 {
   "chat_type": "direct",
-  "chat_id": "ou_xxx",
-  "chat_key": "ou_xxx",
-  "name": "芳芳",
-  "names": ["芳芳", "方芳"],
-  "bitable_key": "lifeos_fangfang",
-  "profile_id": "002"
+  "chat_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+  "chat_key": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+  "name": "金",
+  "names": ["金", "老金", "阿金", "Jin"],
+  "sender_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+  "bitable_key": "lifeos_jin",
+  "profile_id": "001"
 }
 ```
 
+**关键字段说明：**
+- `chat_id`：私聊时为用户的 open_id，直聊时与 sender_id 相同
+- `sender_id`：用户唯一标识（Feishu open_id），用于 2/3 匹配
+- `names`：数组，用于 sender_name 模糊匹配（群聊场景）
+
 ### 修改后检查清单
 
-- 确认 runtime metadata 能正确命中目标成员
-- 确认数据写入了正确的 Bitable
-- 确认命中路由后，agent 不会再重复追问身份
+- [ ] 确认 runtime metadata 中的 sender_id 能精确匹配到 `owner_feishu_id`
+- [ ] 确认群聊中 sender_name 能匹配到 `names` 数组
+- [ ] 确认数据写入了正确的 Bitable / profile
+- [ ] 确认命中路由后，agent 不会再重复追问身份
+- [ ] 确认回复中不会再说"请问你是谁"或"你是老金还是芳芳"
