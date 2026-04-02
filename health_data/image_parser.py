@@ -97,15 +97,26 @@ class ImageParser:
         Returns:
             标准化后的记录列表
         """
+        import datetime
         image_hash = self._compute_hash(image_path)
+        current_year = datetime.datetime.now().year
         
         records = []
         for r in llm_json.get("records", []):
+            date = r.get("date", "")
+            # 修正年份：如果解析出的年份是过去且不合理（比当前年份早2年以上），用当前年份
+            if date:
+                parts = date.split("-")
+                if len(parts) == 3:
+                    parsed_year = int(parts[0])
+                    if parsed_year < current_year - 1:
+                        date = f"{current_year}-{parts[1]}-{parts[2]}"
+            
             records.append({
                 "metric_type": r.get("metric_type"),
                 "value": r.get("value"),
                 "unit": r.get("unit"),
-                "date": r.get("date"),
+                "date": date,
                 "granularity": r.get("granularity", "instant"),
                 "raw_text": r.get("raw_text", ""),
                 "source_app": llm_json.get("source_app", "xiaomi_health"),

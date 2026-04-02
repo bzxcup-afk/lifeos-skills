@@ -130,6 +130,8 @@ class HealthDataService:
         METRIC_CN = {
             "steps": "步数",
             "active_calories": "卡路里",
+            "moderate_vigorous_minutes": "中高强度",
+            "activity_sessions": "活动次数",
             "sleep_duration_minutes": "睡眠",
             "heart_rate": "心率",
             "weight_kg": "体重",
@@ -142,6 +144,7 @@ class HealthDataService:
             "steps": "步",
             "kcal": "千卡",
             "min": "分钟",
+            "times": "次",
             "bpm": "次/分",
             "kg": "kg",
             "mmol/L": "mmol/L",
