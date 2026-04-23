@@ -14,16 +14,16 @@ FEISHU_APP_ID = os.getenv("LIFEOS_FEISHU_APP_ID", "cli_a92ed6e39938dbd2")
 FEISHU_APP_SECRET = os.getenv("LIFEOS_FEISHU_APP_SECRET", "4bZFShVypTIKI25FmNHSLgRUL7BuRhrq")
 FEISHU_API_BASE = "https://open.feishu.cn/open-apis"
 
-# 时间槽 -> 触发时间
+# 时间槽 -> 触发时间（与干预计划时间对齐）
 TIME_SLOT_TRIGGERS = {
     '起床后': 7,
     '早餐前': 7,
     '早餐后': 8,
     '午餐前': 11,
-    '午餐后': 12,
+    '午餐后': 14,   # 与干预计划 14:00 对齐
     '晚餐前': 17,
     '晚餐后': 18,
-    '睡前': 20  # 20:30
+    '睡前': 21      # 与干预计划 21:00 对齐
 }
 
 # ==================== 飞书 API ====================
@@ -40,26 +40,31 @@ def get_feishu_token() -> str:
         raise Exception(f"获取token失败: {data.get('msg')}")
     return data["tenant_access_token"]
 
-def send_feishu_message(token: str, chat_id: str, msg_type: str, content: str) -> dict:
+def send_feishu_message(token: str, receive_id: str, channel_type: str, msg_type: str, content: str) -> dict:
     """发送飞书消息到群/私聊"""
-    url = f"{FEISHU_API_BASE}/im/v1/messages?receive_id_type=chat_id"
+    # channel_id 为 open_id（ou_ 开头）时用 user_id 类型；群 chat_id 用 chat_id 类型
+    if receive_id.startswith("ou_"):
+        receive_id_type = "open_id"
+    else:
+        receive_id_type = "chat_id"
+    url = f"{FEISHU_API_BASE}/im/v1/messages?receive_id_type={receive_id_type}"
     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
     payload = {
-        "receive_id": chat_id,
+        "receive_id": receive_id,
         "msg_type": msg_type,
         "content": content
     }
     resp = requests.post(url, headers=headers, json=payload, timeout=30)
     result = resp.json()
     if result.get("code") != 0:
-        print(f"[feishu] 发送失败: {result.get('msg')}", flush=True)
+        print(f"[feishu] 发送失败: receive_id={receive_id}, type={receive_id_type}, error={result.get('msg')}", flush=True)
     else:
-        print(f"[feishu] 发送成功 -> {chat_id}", flush=True)
+        print(f"[feishu] 发送成功 -> {receive_id} ({receive_id_type})", flush=True)
     return result
 
-def send_text_message(token: str, chat_id: str, text: str) -> dict:
+def send_text_message(token: str, receive_id: str, channel_type: str, text: str) -> dict:
     """发送文本消息"""
-    return send_feishu_message(token, chat_id, "text", json.dumps({"text": text}))
+    return send_feishu_message(token, receive_id, channel_type, "text", json.dumps({"text": text}))
 
 def send_reminders_via_feishu(reminders: List[Dict[str, Any]]) -> int:
     """发送提醒列表到飞书，返回成功数量"""
@@ -70,7 +75,7 @@ def send_reminders_via_feishu(reminders: List[Dict[str, Any]]) -> int:
         token = get_feishu_token()
         success_count = 0
         for r in reminders:
-            result = send_text_message(token, r["channel_id"], r["message"])
+            result = send_text_message(token, r["channel_id"], r["channel_type"], r["message"])
             if result.get("code") == 0:
                 success_count += 1
         return success_count
@@ -97,6 +102,63 @@ def get_slot_by_trigger_hour(trigger_hour: int) -> str | None:
         if hour == trigger_hour:
             return slot
     return None
+
+# ==================== 干预计划提醒 ====================
+
+def get_intervention_reminders_by_hour(hour: int) -> List[Dict[str, Any]]:
+    """检查干预计划中指定小时对应的提醒"""
+    data_dir = get_data_dir()
+    intervention_file = os.path.join(data_dir, 'intervention_plans.json')
+    
+    interventions = load_json(intervention_file, [])
+    
+    # 筛选活跃的、匹配小时的干预计划
+    hour_str = f"{hour:02d}:00"
+    relevant = [
+        i for i in interventions
+        if i.get('active') and i.get('time') == hour_str
+    ]
+    
+    if not relevant:
+        return []
+    
+    print(f"[intervention] 时间 {hour_str} 找到 {len(relevant)} 个活跃干预计划")
+    
+    reminders = []
+    # 按渠道分组，每组只发一条消息
+    channel_groups: Dict[str, List] = {}
+    for item in relevant:
+        key = f"{item.get('channel_id')}:{item.get('channel_type')}"
+        if key not in channel_groups:
+            channel_groups[key] = []
+        channel_groups[key].append(item)
+    
+    for key, group in channel_groups.items():
+        channel_id, channel_type = key.split(':')
+        mention_target = group[0].get('mention_target', '')
+        
+        # 合并该组所有消息内容
+        messages = [g.get('message', '') for g in group if g.get('message')]
+        combined_message = '\n'.join(messages)
+        
+        # 群聊需要 @，私聊不需要
+        if channel_type == 'group':
+            if mention_target.startswith('<at'):
+                final_msg = f"{mention_target}\n{combined_message}"
+            else:
+                final_msg = f"@{mention_target}\n{combined_message}"
+        else:
+            final_msg = combined_message
+        
+        reminders.append({
+            'channel_id': channel_id,
+            'channel_type': channel_type,
+            'mention_target': mention_target,
+            'message': final_msg
+        })
+        print(f"[intervention] 生成提醒: {channel_id} -> {combined_message[:50]}...")
+    
+    return reminders
 
 def load_json(filepath: str, default: Any) -> Any:
     """安全读取JSON文件"""
@@ -200,7 +262,13 @@ def check_reminders() -> List[Dict[str, Any]]:
         drugs_text = '\n'.join([f"- {d}" for d in drugs])
         
         if channel_type == 'group':
-            message = f"@{mention_target}\n现在是{current_slot}服药时间\n今天需要服用：\n{drugs_text}"
+            # mention_target 可能是旧格式(纯文本名字)或新格式(<at user_id="ou_xxx">name</at>)
+            # 新格式已包含 proper Feishu @mention，不需要额外加 @
+            if mention_target.startswith('<at'):
+                message = f"{mention_target}\n现在是{current_slot}服药时间\n今天需要服用：\n{drugs_text}"
+            else:
+                # 旧格式：纯文本名字，需要加 @ 前缀（兼容处理）
+                message = f"@{mention_target}\n现在是{current_slot}服药时间\n今天需要服用：\n{drugs_text}"
         else:
             message = f"现在是{current_slot}服药时间\n今天需要服用：\n{drugs_text}"
         
@@ -330,7 +398,13 @@ def check_by_time_slot(time_slot: str) -> List[Dict[str, Any]]:
         drugs_text = '\n'.join([f"- {d}" for d in drugs])
         
         if channel_type == 'group':
-            message = f"@{mention_target}\n现在是{time_slot}服药时间\n今天需要服用：\n{drugs_text}"
+            # mention_target 可能是旧格式(纯文本名字)或新格式(<at user_id="ou_xxx">name</at>)
+            # 新格式已包含 proper Feishu @mention，不需要额外加 @
+            if mention_target.startswith('<at'):
+                message = f"{mention_target}\n现在是{time_slot}服药时间\n今天需要服用：\n{drugs_text}"
+            else:
+                # 旧格式：纯文本名字，需要加 @ 前缀（兼容处理）
+                message = f"@{mention_target}\n现在是{time_slot}服药时间\n今天需要服用：\n{drugs_text}"
         else:
             message = f"现在是{time_slot}服药时间\n今天需要服用：\n{drugs_text}"
         
@@ -371,22 +445,36 @@ def main():
             return
         
         elif sys.argv[1] == 'trigger':
-            # 按时间槽触发并发送飞书消息
+            # 按时间槽触发并发送飞书消息（药品 + 干预）
             if len(sys.argv) > 2:
                 time_slot = sys.argv[2]
-                reminders = check_by_time_slot(time_slot)
             else:
                 # 自动检测当前时间槽
                 current_slot = get_current_time_slot()
-                if current_slot:
-                    reminders = check_by_time_slot(current_slot)
-                else:
+                if not current_slot:
                     print("当前不在任何时间槽触发点")
                     return
+                time_slot = current_slot
             
-            if reminders:
-                sent = send_reminders_via_feishu(reminders)
-                print(f"飞书发送完成: {sent}/{len(reminders)} 条")
+            # 1. 检查药品提醒
+            medicine_reminders = check_by_time_slot(time_slot)
+            
+            # 2. 检查干预提醒（根据时间槽对应的小时）
+            trigger_hour = TIME_SLOT_TRIGGERS.get(time_slot)
+            intervention_reminders = []
+            if trigger_hour is not None:
+                intervention_reminders = get_intervention_reminders_by_hour(trigger_hour)
+            
+            # 合并所有提醒
+            all_reminders = medicine_reminders + intervention_reminders
+            
+            if all_reminders:
+                sent = send_reminders_via_feishu(all_reminders)
+                print(f"飞书发送完成: {sent}/{len(all_reminders)} 条")
+                if medicine_reminders:
+                    print(f"  - 药品提醒: {len(medicine_reminders)} 条")
+                if intervention_reminders:
+                    print(f"  - 干预提醒: {len(intervention_reminders)} 条")
             else:
                 print("无待发送提醒")
             return
@@ -403,17 +491,26 @@ def main():
             print("  python check_medicine_reminders.py list  # 列出触发时间")
             return
     else:
-        # 默认：检查当前时间槽
+        # 默认：检查当前时间槽（药品 + 干预）
         current_slot = get_current_time_slot()
-        if current_slot:
-            reminders = check_by_time_slot(current_slot)
-        else:
+        if not current_slot:
             print("当前不在任何时间槽触发点")
             return
+        
+        # 1. 检查药品提醒
+        medicine_reminders = check_by_time_slot(current_slot)
+        
+        # 2. 检查干预提醒
+        trigger_hour = TIME_SLOT_TRIGGERS.get(current_slot)
+        intervention_reminders = []
+        if trigger_hour is not None:
+            intervention_reminders = get_intervention_reminders_by_hour(trigger_hour)
+        
+        all_reminders = medicine_reminders + intervention_reminders
     
-    if reminders:
-        print(f"\n=== 需要发送 {len(reminders)} 条提醒 ===")
-        print(json.dumps(reminders, ensure_ascii=False, indent=2))
+    if all_reminders:
+        print(f"\n=== 需要发送 {len(all_reminders)} 条提醒 ===")
+        print(json.dumps(all_reminders, ensure_ascii=False, indent=2))
     else:
         print("无待发送提醒")
 

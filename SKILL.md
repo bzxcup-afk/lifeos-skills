@@ -21,6 +21,9 @@ description:   家庭 LifeOS 健康助手，用于 Feishu 群聊/私聊场景下
     → **必须走 medicine 模块**，返回用药提示 + 询问时间槽，不能只记录
   • 健康数据导入：发送图片 + 「记录健康数据」/ 「健康数据」
     → **必须走 health_data 模块**，调用识图 → 写入 health_data_logs 表
+  • 问题导向干预：表达改善/计划/调理某问题的意愿
+    → **必须走 intervention_intake 模块**，先输出干预原则，不直接生成计划
+    → 触发词：「改善睡眠问题」「帮我制定一个改善失眠的计划」「最近睡不好，想调理一下」等
 ---
 
 # LifeOS Main
@@ -538,6 +541,505 @@ ctx = build_preference_context(profile_id)
 - `summary_for_system`: 生成一句人类可读摘要
 
 **禁止：** 仅给健康建议就结束，不写记录。记录比建议更重要--建议可能出错，但记录不会丢失。
+
+---
+
+## 7. 问题导向干预入口模块 v1.0
+
+### 模块位置
+`scripts/intervention_intake.py`
+
+### 触发条件
+当用户表达"改善某个问题"或"希望为某个问题制定计划"的意愿时激活。
+
+**触发表达示例：**
+- "改善睡眠问题"
+- "帮我制定一个改善失眠的计划"
+- "最近总是睡不好，想调理一下"
+- "最近睡不好困扰我，帮我安排"
+- "我想改善高血压"
+- "帮我做一个减肥的计划"
+
+**不触发的情况（纯知识问答）：**
+- "什么是失眠？"
+- "请问高血压怎么治疗？"
+- 其他以"请问"、"什么是"开头的问句
+
+### 工作流程
+
+```
+用户表达改善意愿
+    │
+    ├─ 1. 识别为"问题导向干预请求"
+    ├─ 2. 规范化问题名称 → canonical_id
+    ├─ 3. 查询 knowledge/problems/{canonical_id}.md
+    │     └─ 若不存在，则自动创建最小版 md
+    ├─ 4. 解析 md 文件，提取结构化信息
+    ├─ 5. 输出干预原则与计划方式说明
+    │     └─ 本次只做入口，不生成完整计划
+    └─ 6. 返回结构化数据供后续模块使用
+```
+
+### 问题规范化映射
+
+| canonical_id | 支持的关键词 |
+|-------------|-------------|
+| sleep-insomnia | 失眠、睡不好、睡眠问题、入睡困难、改善睡眠... |
+| hypertension | 高血压、血压高、控制血压... |
+| weight-loss | 减肥、瘦身、控制体重、减重... |
+
+### 知识文件目录
+
+```
+knowledge/
+  problems/
+    sleep-insomnia.md  # 失眠问题干预知识
+    hypertension.md    # 高血压问题干预知识
+    weight-loss.md     # 体重控制问题干预知识
+```
+
+### 调用方式
+
+```python
+from intervention_intake import handle_intervention_intake
+
+result = handle_intervention_intake(user_message)
+if result["success"]:
+    # 发送回复
+    send_reply(result["reply_message"])
+    # 保存结构化数据供后续使用
+    structured_data = result["structured_data"]
+```
+
+### 返回结构
+
+```python
+{
+    "success": True,
+    "should_respond": True,
+    "reply_message": "已为您找到...",
+    "structured_data": {
+        "canonical_id": "sleep-insomnia",
+        "display_name": "失眠 / 睡眠改善",
+        "knowledge_file": "knowledge/problems/sleep-insomnia.md",
+        "file_was_newly_created": False,
+        "intervention_principles": [...],
+        "intervention_dimensions": [...],
+        "candidate_actions": [...],
+        "required_info_to_ask": [...],
+        "risk_boundaries": [...]
+    }
+}
+```
+
+### 行为约束
+
+1. **不要在第一轮就输出完整周计划**
+2. **不要一上来问很多问题**
+3. **优先复用已有知识文件**
+4. **若无知识文件，只创建最小骨架版**
+5. **本次只完成入口层，不实现完整计划编排**
+
+**⚠️ 关键执行规则（2026-04-09 更新）**
+
+入口层完成后，**必须直接推进闭环**，不能只输出知识说明就结束。
+
+**核心原则：用户没说不要 = 默认要**
+
+闭环内容从该问题的 `DEFAULT_CLOSED_LOOP_SUGGESTIONS` 中获取，格式为：
+- "每天[X点]提醒你[Y]"
+- "[时间]我再来问你效果怎么样"
+
+禁止：
+- 给二元判断题（要不要/好不好）
+- 用户没明确拒绝就停下来
+- 只输出干预原则不推进闭环
+
+示例流程：
+```
+用户：「我想改善睡眠，最近有点失眠」
+    ↓
+1. handle_intervention_intake() 返回 structured_data
+2. 发送干预原则说明
+3. **直接给出闭环建议**（如"每天8点提醒你记一下睡眠，下周三我来问你效果"）
+4. 用户没说不要 → 确认闭环，进入后续流程
+5. 用户说不要 → 按用户反馈调整
+```
+
+### 集成点
+
+在消息处理流程中，**问题导向干预请求的检测应优先于普通数据记录**：
+
+```python
+# 1. 首先检查是否是问题导向干预请求
+from intervention_intake import handle_intervention_intake
+
+intent_result = handle_intervention_intake(user_message)
+if intent_result["success"]:
+    # 进入干预入口流程
+    reply = intent_result["reply_message"]
+    # 保存 structured_data 到会话上下文，供后续模块使用
+    session_ctx["intervention_data"] = intent_result["structured_data"]
+    return reply
+
+# 2. 如果不是干预请求，继续常规处理（记录、睡眠、血压等）
+```
+
+### 第一轮输出示例
+
+```
+已为您找到这个问题对应的知识文件。
+
+针对"失眠"这个问题，一般会从以下几个方面来改善，例如作息规律、昼夜节律、白天活动、饮食刺激、睡前行为、药物使用情况等因素。
+
+我会依据这些原则，结合你的资料和实际习惯，帮你逐步整理出一个负担不要太重、可执行的干预思路。
+
+每天早上8点左右提醒你简单记一下昨晚睡得怎么样，下周三我再来问你效果怎么样，看要不要调整。
+
+（本次为入口阶段，先按这个节奏试一周，待信息补齐后再细化计划。）
+
+---
+📋 知识文件信息：
+- 文件：knowledge/problems/sleep-insomnia.md
+- 可干预维度：7 个
+- 候选措施：8 项
+```
+
+---
+
+## 8. 干预资料补全模块 v1.0
+
+### 模块位置
+`scripts/intervention_data_collector.py`
+
+### 触发时机
+在干预入口（Step 1-5）完成后，继续执行 Step 6-8：
+1. 读取用户已有数据
+2. 生成关键问题并向用户提问
+3. 接收回答 → 结构化 → 输出优先事项 → 生成 case 文件
+
+### 工作流程
+
+```
+干预入口完成后
+    │
+    ├─ Step 6: 读取用户已有数据
+    │     └─ profile + preferences + history + medication
+    ├─ Step 7: 生成关键问题
+    │     └─ 由 LLM 基于上下文动态生成（3-4个）
+    ├─ Step 8: 向用户提问
+    │     └─ 语气温和，不像问卷
+    ├─ Step 9: 接收用户回答
+    │     └─ 不打断，不纠错
+    ├─ Step 10: 结构化回答
+    │     └─ 允许模糊值，不要求完美
+    ├─ Step 11: 输出优先事项
+    │     └─ 本周重点（3个）+ 可选（1-2个）+ 记录项（2-4个）
+    └─ Step 12: 生成 case 文件
+          └─ cases/{problem_id}/case-{user_id}-{date}.md
+```
+
+### 调用方式
+
+**方式1：完整流程（测试/单次调用）**
+```python
+from intervention_data_collector import run_full_intake_flow
+
+result = run_full_intake_flow(
+    user_id="ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    profile_id="001",
+    user_message="改善睡眠问题",
+    user_answer="我大概11点多睡，7点多起，睡6个多小时..."
+)
+
+if result.get("missing_questions"):
+    # 发送给用户的问题
+    send_reply(result["reply_message"])
+
+if result.get("case_file"):
+    # case 文件已生成
+    print(f"Case: {result['case_file']}")
+```
+
+**方式2：分步流程（会话中多次交互）**
+```python
+from intervention_data_collector import start_intervention_session, process_user_answer
+
+# Step 1-5: 启动会话，获取问题
+session = start_intervention_session(
+    user_id="ou_xxx",
+    profile_id="001",
+    user_message="改善睡眠问题"
+)
+# 发送 session["reply_message"] 给用户（需要LLM生成问题）
+
+# Step 6-8: 用户回答后，处理并生成 case
+result = process_user_answer(
+    session_data=session["session_data"],
+    user_answer="用户刚才说的话",
+    llm_questions=session["missing_questions"],
+    llm_priorities="【本周重点】..."
+)
+```
+
+### Case 文件结构
+
+```
+cases/
+  sleep-insomnia/
+    case-ou_xxx-20260405.md
+  hypertension/
+    case-ou_xxx-20260405.md
+```
+
+Case 文件包含：
+- 基本信息（user_id, problem_id, display_name, created_at）
+- 知识文件路径
+- 用户已有信息摘要
+- 本轮补充提问
+- 用户回答摘要
+- 结构化回答（JSON）
+- 当前优先事项
+
+### 优先事项输出格式
+
+```
+【本周重点（先做这3件事）】
+1. 先记录3天睡眠情况（几点睡、几点起、睡得怎么样）
+2. 固定起床时间，即使没睡好也按时起
+3. 晚上10点后减少看手机
+
+【可以尝试（可选）】
+- 早晨晒15分钟太阳
+- 下午3点后不喝咖啡
+
+【这周只需要简单记录】
+- 每天简单记一下睡眠情况
+- 记一下白天是否明显困倦
+```
+
+### 行为约束
+
+1. 先读知识文件，再读用户已有数据，再提问
+2. 不要自己硬编码具体问题字段
+3. 提问由 LLM 基于当前上下文动态生成
+4. 每次只问 3-4 个关键问题
+5. 不要重复问已有信息
+6. 用户回答不完整，也必须继续流程
+7. 不要把优先事项输出成完整周计划
+8. 优先事项必须少而具体
+9. 语气温和，尤其对老人用户
+10. 不要假设用户依从度高
+11. 不要完全相信用户口头反馈，后续可结合记录再校正
+
+### 异常处理
+
+**用户不愿回答：**
+```
+没关系，我可以先按一个比较通用、负担比较轻的方向帮你整理优先事项，后面再慢慢调整。
+```
+
+**用户回答很模糊：**
+- 保留模糊值
+- 不反复追问
+- 继续流程
+
+---
+
+## 9. 干预调度模块（Phase 3）
+
+### 模块位置
+`scripts/intervention_scheduler.py`
+
+### 触发时机
+在 Phase 2（资料补全）完成之后，执行从优先事项到计划、提醒、反馈的调度。
+
+### 工作流程
+
+```
+已生成优先事项
+    │
+    ├─ Step 1: 生成本周调整计划（给用户看）
+    ├─ Step 2: 生成提醒候选项
+    ├─ Step 3: 读取当前已有 cron 任务
+    ├─ Step 4: 合并提醒时间（优先药品提醒时间）
+    ├─ Step 5: 写入干预计划到 JSON
+    ├─ Step 6: 生成反馈收集任务
+    ├─ Step 7: 写入反馈任务到 JSON
+    └─ Step 8: 更新 case 文件
+```
+
+### 调用方式
+
+```python
+from intervention_scheduler import run_intervention_scheduler
+
+result = run_intervention_scheduler(
+    user_id="ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    user_name="金",
+    channel_id="ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    channel_type="direct",
+    mention_target="@金",
+    case_file_path="cases/sleep-insomnia/case-ou_xxx-20260405.md",
+    canonical_id="sleep-insomnia",
+    display_name="失眠 / 睡眠改善",
+    priority_items={
+        "key": ["每天固定在 7:00 起床", "下午 2 点后不再喝咖啡", "晚上 22:30 后不再刷手机"],
+        "optional": ["晚饭后散步 15 分钟"],
+        "record": ["实际睡觉时间", "实际起床时间"]
+    }
+)
+
+# 返回：
+# - user_plan: 给用户看的调整计划
+# - reminder_schedule: 提醒安排
+# - feedback_schedule: 反馈安排
+# - cron_write_results: cron写入结果
+```
+
+### 可配置参数
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| MERGE_TIME_DIFF_MINUTES | 60 | 时间差 <= 此值则合并（1小时） |
+| MAX_DAILY_REMINDERS | 3 | 每天最大主动提醒数 |
+| FEEDBACK_DELAY_MINUTES | 10 | 反馈比主提醒晚几分钟 |
+
+### 提醒合并规则
+
+1. 所有新提醒必须先检查已有 cron 任务
+2. 优先使用已有时间点（尤其药品提醒时间）
+3. 如果新提醒与已有提醒时间差 <= 1 小时，必须合并
+4. 每个时间段默认只保留一条对外提醒消息
+5. 每天主动提醒总数默认不超过 3 条
+
+### 数据存储
+
+- **干预计划**：`medicine/intervention_plans.json`
+- **反馈任务**：也写入 `medicine/intervention_plans.json`
+- **case 文件**：追加更新 `cases/{problem_id}/case-{user_id}-{date}.md`
+
+### 提醒消息格式
+
+```
+【07:00 早间提醒】
+@金 早上提醒你一下：起床，如果方便的话晒太阳
+
+【14:00 下午提醒】
+@金 下午提醒你一下：之后不要再喝咖啡或浓茶
+
+【21:00 晚间提醒】
+@金 晚上提醒你一下：减少看手机，慢慢准备休息
+```
+
+### 反馈任务格式
+
+**每日轻反馈（21:10）：**
+```
+@金 今天这几件事大概做得怎么样？大概说一下就可以。
+```
+
+**周复盘反馈（周日 21:00）：**
+```
+@金 这周我想和你简单回顾一下：这几天有没有一点变化？哪条最容易做到？哪条最难做到？
+```
+
+### 行为约束
+
+1. 从优先事项开始，不重新生成优先事项
+2. 优先事项先转成给用户的调整计划
+3. 调整计划再转成提醒候选项
+4. 新提醒必须先检查已有 cron 任务
+5. 优先与药品提醒时间合并
+6. 每天主动提醒默认不超过 3 条
+7. 反馈收集必须通过 cron 触发
+8. 每天最多 1 个轻反馈任务
+9. 每周最多 1 个复盘反馈任务
+10. 默认使用用户发起请求的原群聊作为提醒与反馈渠道
+11. 默认 @ 原用户
+12. case 文件必须记录计划、提醒、反馈和 cron 写入结果
+
+---
+
+## 10. 周复盘模块（Phase 4）
+
+### 模块位置
+`scripts/intervention_weekly_review.py`
+
+### 触发时机
+在用户完成一周执行并通过 cron 收集到周复盘反馈后执行。
+
+### 工作流程
+
+```
+收集到周复盘反馈
+    │
+    ├─ Step 1: 读取上一周 case 数据
+    ├─ Step 2: 读取用户反馈
+    ├─ Step 3: 生成周复盘总结（变化，不是流水账）
+    ├─ Step 4: 策略判断（保留/强化/调整/放弃）
+    ├─ Step 5: 生成下周策略说明
+    ├─ Step 6: 生成下一周优先事项
+    ├─ Step 7: 复用 Phase 3 生成新提醒和反馈
+    └─ Step 8: 更新 case 文件（连续记录）
+```
+
+### 调用方式
+
+```python
+from intervention_weekly_review import run_weekly_review
+
+result = run_weekly_review(
+    user_id="ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    problem_id="sleep-insomnia",
+    user_name="金",
+    channel_id="ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    channel_type="direct",
+    mention_target="@金",
+    user_feedback="睡眠稍微好一点了，但还是会醒，晚上少看手机有时候能做到，早起比较难",
+    last_week_items=[
+        "每天固定在 7:00 起床",
+        "下午 2 点后不再喝咖啡或浓茶",
+        "晚上 22:30 后不再刷手机"
+    ]
+)
+
+# 返回：
+# - week_summary: 周总结（给用户）
+# - next_week_strategy: 下周策略说明
+# - next_week_priorities: 下周优先事项
+# - scheduler_result: Phase 3 结果
+```
+
+### 周总结格式
+
+```
+【这周的情况我帮你简单总结一下】
+
+整体来看，是一个「开始在变化，但还没稳定下来」的阶段，这是正常的。
+我们可以在这个基础上稍微调整一下，继续往前走。
+```
+
+### 策略判断规则
+
+1. 用户能做到的 → 保留 + 稍微强化
+2. 偶尔做到的 → 降低难度 or 调整方式
+3. 完全做不到的 → 不强化，甚至移除
+4. 有效果的 → 提升优先级
+5. 无明显效果的 → 先不增加复杂度
+
+### 行为约束
+
+1. 不否定用户
+2. 不推翻计划
+3. 不增加复杂度
+4. 优先稳定行为
+5. 允许慢变化
+6. 不依赖用户完全真实反馈
+7. 不做医学判断
+8. 不给药物调整建议
+
+---
 
 ## 脚本
 

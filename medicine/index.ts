@@ -102,6 +102,10 @@ ${detailText}
     }
     
     // 创建用药计划
+    // 群聊时用飞书 proper @mention 格式，私聊用纯名字
+    const mentionTargetFormatted = channelType === 'group'
+      ? `<at user_id="${senderId}">${senderName}</at>`
+      : senderName;
     const plan = createPlan({
       user_id: senderId,
       user_name: senderName,
@@ -109,7 +113,7 @@ ${detailText}
       time_slot: timeSlot,
       channel_type: channelType,
       channel_id: chatId,
-      mention_target: mentionTarget || senderName
+      mention_target: mentionTargetFormatted
     });
     
     // 清除上下文

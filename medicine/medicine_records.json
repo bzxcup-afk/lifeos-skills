@@ -1,1 +1,1487 @@
-[]
+[
+  {
+    "id": "rec_20260328180619_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-03-28",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260328180619_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-03-28",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260328180619_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-03-28",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260329202729_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-03-29",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260329202800_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-03-29",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260329202800_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-03-29",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260329202800_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-03-29",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260330170310_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-03-30",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260330180235_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-03-30",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260330180235_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-03-30",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260330180235_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-03-30",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260401193104_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-01",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260401193104_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-01",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260401193104_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-01",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260401193104_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-01",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260402184437_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-02",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260402184437_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-02",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260402184437_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-02",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260402184437_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-02",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260403073008_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-03",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260403073008_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-03",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260403170430_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-03",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260403180417_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-03",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260403180417_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-03",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260403180417_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-03",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260403180417_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-03",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260404073249_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-04",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260404073249_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-04",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260404170047_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-04",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260404180117_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-04",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260404180117_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-04",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260404180117_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-04",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260404180117_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-04",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260405073217_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-05",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260405073217_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-05",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260405170244_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-05",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260405180147_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-05",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260405180147_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-05",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260405180147_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-05",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260405180147_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-05",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260406073217_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-06",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260406073217_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-06",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260406170245_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-06",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260406180013_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-06",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260406180013_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-06",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260406180013_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-06",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260406180013_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-06",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260407073019_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-07",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260407073019_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-07",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260407171400_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-07",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260407180223_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-07",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260407180223_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-07",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260407180223_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-07",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260407180223_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-07",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260408073140_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-08",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260408073140_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-08",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260408170043_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-08",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260408180042_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-08",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260408180042_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-08",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260408180042_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-08",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260408180042_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-08",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260409073246_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-09",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260409073246_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-09",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260409180042_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-09",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260409180042_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-09",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260409180042_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-09",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260409180042_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-09",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260410080942_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-10",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260410080942_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-10",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260410170347_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-10",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260410191017_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-10",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260410191017_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-10",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260410191017_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-10",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260410191017_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-10",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260411073150_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-11",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260411073150_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-11",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260411170201_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-11",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260411180142_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-11",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260411180142_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-11",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260411180142_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-11",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260411180142_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-11",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260412073131_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-12",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260412073131_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-12",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260412170153_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-12",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260412180142_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-12",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260412180142_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-12",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260412180142_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-12",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260412180142_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-12",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260413073142_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-13",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260413073142_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-13",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260413170143_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-13",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260413180142_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-13",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260413180142_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-13",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260413180142_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-13",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260413180142_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-13",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260414073149_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-14",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260414073149_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-14",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260414170306_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-14",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260414180137_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-14",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260414180137_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-14",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260414180137_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-14",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260414180137_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-14",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260415073145_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-15",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260415073145_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-15",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260415170208_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-15",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260415180147_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-15",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260415180147_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-15",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260415180147_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-15",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260415180147_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-15",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260416073136_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-16",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260416073136_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-16",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260416170144_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-16",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260416180150_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-16",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260416180150_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-16",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260416180150_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-16",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260416180150_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-16",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260417092614_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-17",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260417092614_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-17",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260417170158_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-17",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260417180138_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-17",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260417180138_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-17",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260417180138_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-17",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260417180138_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-17",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260418073134_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-18",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260418073134_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-18",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260418170128_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-18",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260418180135_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-18",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260418180135_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-18",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260418180135_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-18",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260418180135_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-18",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260419073126_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-19",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260419073126_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-19",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260419170323_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-19",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260419180258_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-19",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260419180258_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-19",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260419180258_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-19",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260419180258_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-19",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260420073159_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-20",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260420073159_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-20",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260420170230_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-20",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260420180119_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-20",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260420180119_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-20",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260420180119_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-20",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260420180119_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-20",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260421092317_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-21",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260421092317_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-21",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260421170125_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-21",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260421180119_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-21",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260421180119_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-21",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260421180119_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-21",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260421180119_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-21",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260422091301_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-22",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260422091301_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-22",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260422170231_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-22",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260422180206_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-22",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260422180206_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-22",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260422180206_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-22",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260422180206_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-22",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260423073140_med_20260402221532",
+    "plan_id": "med_20260402221532",
+    "user_id": "ou_d16d4016571a964aa54d276b74ed8f5d",
+    "drug_name": "降压药",
+    "date": "2026-04-23",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260423073140_med_20260402222042_001",
+    "plan_id": "med_20260402222042_001",
+    "user_id": "ou_5843b2b72f4ffc8dd9d136d462eea22c",
+    "drug_name": "降压药",
+    "date": "2026-04-23",
+    "time_slot": "早餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260423170606_med_20260325180847",
+    "plan_id": "med_20260325180847",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "二甲双胍",
+    "date": "2026-04-23",
+    "time_slot": "晚餐前",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260423180630_med_20260325180950",
+    "plan_id": "med_20260325180950",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "鱼油",
+    "date": "2026-04-23",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260423180630_med_20260325183355",
+    "plan_id": "med_20260325183355",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "alpha-酮戊二酸(AKG)",
+    "date": "2026-04-23",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260423180630_med_20260325183427",
+    "plan_id": "med_20260325183427",
+    "user_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
+    "drug_name": "维生素D",
+    "date": "2026-04-23",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  },
+  {
+    "id": "rec_20260423180630_med_fangfang_vitb",
+    "plan_id": "med_fangfang_vitb",
+    "user_id": "ou_4c52d462605781e325fe079a22e99d1e",
+    "drug_name": "维生素B族",
+    "date": "2026-04-23",
+    "time_slot": "晚餐后",
+    "status": "pending"
+  }
+]

@@ -85,6 +85,7 @@
         "阿金",
         "Jin"
       ],
+      "sender_id": "ou_fde56bd8d48eca22b3d57ab990ee4f02",
       "bitable_key": "lifeos_jin",
       "profile_id": "001"
     },
@@ -97,6 +98,7 @@
         "芳芳",
         "方芳"
       ],
+      "sender_id": "ou_304b7fa2d113ed2310377f23fa8c4b90",
       "bitable_key": "lifeos_fangfang",
       "profile_id": "002"
     },
@@ -110,6 +112,7 @@
         "妈妈",
         "母亲"
       ],
+      "sender_id": "ou_899f67f3779a07320c4084cc972c294b",
       "bitable_key": "lifeos_laoma",
       "profile_id": "003"
     },
@@ -124,6 +127,7 @@
         "爸爸",
         "父亲"
       ],
+      "sender_id": "ou_4b26a077c87d79eff1bbf75686453d64",
       "bitable_key": "lifeos_laolao",
       "profile_id": "004"
     },
@@ -134,10 +138,9 @@
       "name": "芳芳",
       "names": [
         "芳芳",
-        "方芳",
-        "???",
-        "???"
+        "方芳"
       ],
+      "sender_id": "ou_4c52d462605781e325fe079a22e99d1e",
       "bitable_key": "lifeos_fangfang",
       "profile_id": "002"
     },
@@ -145,10 +148,13 @@
       "chat_type": "group",
       "chat_id": "oc_7bb4031987aa7d72e6eaba166000e742",
       "chat_key": "group:oc_7bb4031987aa7d72e6eaba166000e742",
-      "name": "阮萍",
+      "name": "老妈",
       "names": [
-        "阮萍"
+        "阮萍",
+        "老妈",
+        "妈妈"
       ],
+      "sender_id": "ou_899f67f3779a07320c4084cc972c294b",
       "bitable_key": "lifeos_laoma",
       "profile_id": "003"
     },
@@ -156,17 +162,14 @@
       "chat_type": "group",
       "chat_id": "oc_e6f4934bd9394f3eebad6093f81fcdee",
       "chat_key": "group:oc_e6f4934bd9394f3eebad6093f81fcdee",
-      "name": "老爸",
+      "name": "老爹",
       "names": [
         "老爸",
         "老爹",
         "爸爸",
-        "父亲",
-        "???",
-        "???",
-        "???",
-        "???"
+        "父亲"
       ],
+      "sender_id": "ou_4b26a077c87d79eff1bbf75686453d64",
       "bitable_key": "lifeos_laolao",
       "profile_id": "004"
     }
